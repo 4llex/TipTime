@@ -16,14 +16,19 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.calculateButton.setOnClickListener {
-            Toast.makeText(applicationContext,"teste button", Toast.LENGTH_LONG).show()
+            //Toast.makeText(applicationContext,"teste button", Toast.LENGTH_LONG).show()
             calculateTip()
         }
     }
 
     private fun calculateTip() {
         val stringInTextField = binding.costOfService.text.toString()
-        val cost = stringInTextField.toDouble()
+        val cost = stringInTextField.toDoubleOrNull()
+
+        if (cost == null) {
+            binding.tipResult.text = ""
+            return
+        }
 
         val selectecId = binding.tipOptions.checkedRadioButtonId
         val tipPercentage = when (selectecId) {
